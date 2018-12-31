@@ -56,8 +56,7 @@ docker-compose up -d
 # # Artifactory and XRay
 # docker-compose -f artifactory/artifactory-oss-postgresql.yml up -d
 
-# Wait 15 seconds for some of the Jenkins key to get generated.
-#sleep 15
+# Wait for the Jenkins key to get generated.
 EC=1
 COUNTER=0
 while [[ ${EC} -ne 0 && ${COUNTER} -le 60 ]] ; do
