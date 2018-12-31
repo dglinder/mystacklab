@@ -49,15 +49,34 @@ sudo docker stop $(docker ps -a -q) >/dev/null 2>&1
 
 # Start up systems
 # Tower, Git, Jenkins
+docker rm tower1 jenkins1 git1
 docker-compose build
 docker-compose up -d
 
 # # Artifactory and XRay
 # docker-compose -f artifactory/artifactory-oss-postgresql.yml up -d
 
-# Finished!  Should see all our running images:
-echo "FINISHED - Should see all the running images"
-docker ps
+# Wait 15 seconds for some of the Jenkins key to get generated.
+#sleep 15
+EC=1
+COUNTER=0
+while [[ ${EC} -ne 0 && ${COUNTER} -le 60 ]] ; do
+  set +e
+  docker exec -ti jenkins1 cat /var/jenkins_home/secrets/initialAdminPassword > /dev/null 2>&1
+  EC=$?
+  set -e
+  [[ ${EC} -ne 0 ]] && sleep 1
+  COUNTER=$(( $COUNTER + 1 ))
+done
 
-echo "Now pull up a browser to the Jenkins system and enter in"
-echo "this one-time password: $(docker exec -ti jenkins1 cat /var/jenkins_home/secrets/initialAdminPassword)"
+if [[ ${COUNTER} -le 60 ]] ; then
+  # Finished!  Should see all our running images:
+  echo "FINISHED - Should see all the running images"
+  docker ps
+
+  echo "Now pull up a browser to the Jenkins system and enter in"
+  echo "this one-time password: $(docker exec -ti jenkins1 cat /var/jenkins_home/secrets/initialAdminPassword)"
+else
+  echo "Unknown state - Jenkins did not create the initialAdminPassword file."
+  echo "Please check the containers."
+fi
