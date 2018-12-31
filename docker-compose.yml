@@ -1,0 +1,41 @@
+version: '3'
+services:
+  tower:
+    # docker image rm tower ; docker-compose build tower ; docker-compose up -d tower
+    # docker exec -ti tower1 ansible --version
+    container_name: tower1
+    image: tower
+    build:
+      context: tower
+    networks:
+      - tools_net
+
+  jenkins:
+    container_name: jenkins1
+    image: jenkins
+    build:
+      context: jenkins
+    ports:
+    - "8080:8080"
+    networks:
+      - tools_net
+
+  git:
+    container_name: git1
+    image: git
+    build:
+      context: git
+    networks:
+      - tools_net
+
+  # artifactory:
+  #   container_name: artifactory1
+  #   image: artifactory
+  #   build:
+  #     context: artifactory
+  #   ports:
+  #     - "80:80"
+  #   networks:
+  #     - tools_net
+networks:
+  tools_net:
