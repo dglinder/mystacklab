@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 set -e  # Stop on any error
 set -u  # Stop when using any undefined variable
 
@@ -79,6 +80,13 @@ for X in ${CONTAINERS} ; do
   sudo sed -i"" "/${X}[[:digit:]]*.mystacklab.dev/d" /etc/hosts
   echo "    "  # Since next line will display, just pre-pend some indent space.
   echo "${LINE}" | sudo tee -a /etc/hosts
+done
+
+# Cleanup the users ssh keys
+# ~/.ssh/known_hosts
+echo "Cleanup the users ssh keys"
+for X in ${CONTAINERS} ; do
+  sudo sed -i"" "/^${X}[[:digit:]]/d" ~/.ssh/known_hosts
 done
 
 # Wait for the Jenkins key to get generated.
