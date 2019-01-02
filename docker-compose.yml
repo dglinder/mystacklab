@@ -4,6 +4,8 @@ services:
     # docker image rm tower ; docker-compose build tower ; docker-compose up -d tower
     # docker exec -ti tower1 ansible --version
     container_name: tower1
+    domainname: mystacklab.dev
+    hostname: tower1
     image: tower
     build:
       context: tower
@@ -12,6 +14,8 @@ services:
 
   jenkins:
     container_name: jenkins1
+    domainname: mystacklab.dev
+    hostname: jenkins1
     image: jenkins
     build:
       context: jenkins
@@ -22,6 +26,8 @@ services:
 
   git:
     container_name: git1
+    domainname: mystacklab.dev
+    hostname: git1
     image: git
     build:
       context: git
@@ -30,6 +36,8 @@ services:
 
   # artifactory:
   #   container_name: artifactory1
+  #    domainname: mystacklab.dev
+  #    hostname: artifactory1
   #   image: artifactory
   #   build:
   #     context: artifactory
