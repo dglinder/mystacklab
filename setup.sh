@@ -2,6 +2,9 @@
 set -e  # Stop on any error
 set -u  # Stop when using any undefined variable
 
+# Update with the names of all containers to build.
+CONTAINERS="master git jenkins tower"
+
 # NOTES:
 # If the docer system gets confused, you can clean out all running containers
 # sudo docker stop $(docker ps -a -q) && \
@@ -9,7 +12,8 @@ set -u  # Stop when using any undefined variable
 # sudo systemctl restart docker
 
 # 1: Setup ssh keys if needed
-for X in git jenkins tower ; do
+for X in ${CONTAINERS}  ; do
+  mkdir -p ${X}
   cd ${X}
   if [ ! -e "${X}_key" ] ; then
     ssh-keygen -N '' -f ${X}_key
