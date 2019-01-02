@@ -23,6 +23,13 @@ for X in ${CONTAINERS}  ; do
   cd ..
 done
 
+# Copy the master key to all container directories.
+for X in ${CONTAINERS} ; do
+  if [[ "${X}" != "master" ]] ; then
+    cp ./master/master_key.pub ./${X}/
+  fi
+done
+
 # Pull down pre-built files from other repos.
 # # 1. Artifactory and Xray
 # if [ ! -e artifactory-docker-examples ] ; then
