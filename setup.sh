@@ -69,6 +69,18 @@ docker-compose up -d
 # # Artifactory and XRay
 # docker-compose -f artifactory/artifactory-oss-postgresql.yml up -d
 
+# Add entries to the docker hosts /etc/hosts file:
+# Idea from: https://stackoverflow.com/a/36156395/187426
+set +x
+echo "Updating this systems /etc/hosts file:"
+for X in ${CONTAINERS} ; do
+  if [[ "${X}" == "master" ]] ; then continue ; fi
+  LINE=$(docker-compose exec ${X} cat /etc/hosts | grep ${X} | tr -d '\r')
+  sudo sed -i"" "/${X}[[:digit:]]*.mystacklab.dev/d" /etc/hosts
+  echo "    "  # Since next line will display, just pre-pend some indent space.
+  echo "${LINE}" | sudo tee -a /etc/hosts
+done
+
 # Wait for the Jenkins key to get generated.
 EC=1
 COUNTER=0
