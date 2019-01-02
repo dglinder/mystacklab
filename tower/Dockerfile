@@ -8,7 +8,7 @@ RUN useradd remote_user && \
     mkdir /home/remote_user/.ssh && \
     chmod 700 /home/remote_user/.ssh
 
-COPY tower_key.pub /home/remote_user/.ssh/authorized_keys
+COPY master_key.pub /home/remote_user/.ssh/authorized_keys
 
 RUN chown remote_user:remote_user  -R /home/remote_user/.ssh/ && \
     chmod 600 /home/remote_user/.ssh/authorized_keys
