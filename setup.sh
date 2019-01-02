@@ -60,7 +60,9 @@ sudo docker stop $(docker ps -a -q) >/dev/null 2>&1
 
 # Start up systems
 # Tower, Git, Jenkins
+set +e
 docker rm tower1 jenkins1 git1
+set -e
 docker-compose build
 docker-compose up -d
 
