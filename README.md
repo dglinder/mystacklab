@@ -30,3 +30,26 @@ Identical to Phase 4 and 5, then extend lifecycle
    * App can pull back colors or hostnames of the systems it hits to show LB and failover.
  * Expand stack systems so they use external DBs (Tower, Artifactory), and increase server count to setup HA/LB 
  
+# Installation steps
+All:
+ * ssh server for remote login
+   * Install the Tower "master_key.pub" into authorized_keys
+
+## Ansible AWX
+ * AWX
+ * Ansible CLI
+ * SSH master key (public and private)
+ * Local DB
+ 
+## Jenkins
+ * Jenkins
+   * Ansible Tower plugins
+   * Colorize plugin
+ * XRay
+ * Local DB
+
+## Git
+ * Git server
+
+## Artifactory
+ * JFrog Artifactory
