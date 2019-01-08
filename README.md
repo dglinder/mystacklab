@@ -1,6 +1,13 @@
 # mystacklab
 A small lab setup using containers to simulate a working CI/CD environment with Ansible, Jenkins, Git, and Artifactory.
 
+## My notes
+
+```
+docker stop tower1 ; docker image rm tower
+docker-compose build tower && docker-compose up -d tower && docker exec -ti tower1 bash
+```
+
 # Phases
 As of December 28, 2018.
 
