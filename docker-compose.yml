@@ -7,6 +7,8 @@ services:
     domainname: mystacklab.dev
     hostname: tower1
     image: tower
+    volumes:
+    - "./tower/ansible:/etc/ansible2"
     build:
       context: tower
     networks:

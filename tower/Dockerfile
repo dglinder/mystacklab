@@ -16,6 +16,10 @@ RUN chown remote_user:remote_user  -R /home/remote_user/.ssh/ && \
 RUN /usr/sbin/sshd-keygen
 
 RUN yum install -y epel-release && \
-    yum install -y ansible
+    yum install -y ansible git
+
+COPY ansible/roles/requirements.yml /etc/ansible/roles/
+
+RUN ansible-galaxy install -r /etc/ansible/roles/requirements.yml -p /etc/ansible/roles
 
 CMD /usr/sbin/sshd -D -e
