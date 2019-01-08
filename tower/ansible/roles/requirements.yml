@@ -1,0 +1,6 @@
+# Setup dependencies:
+# ansible-galaxy install -r requirements.yml
+- src: https://github.com/geerlingguy/ansible-role-jenkins.git
+#- src: https://github.com/geerlingguy/geerlingguy.java.git
+
+
