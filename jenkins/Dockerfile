@@ -1,4 +1,4 @@
-FROM jenkins/jenkins
+FROM centos:7
 
 USER root
 
